@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import Program.entities.Employee;
 
@@ -20,6 +21,14 @@ public class Main {
 		
 		
 	}
+	private static void printEmployeeGroupByFunction(Map<String, List<Employee>> employeeMap) {
+	    employeeMap.forEach((function, employees) -> {
+	        System.out.println("=== " + function + " ===");
+	        employees.forEach(System.out::println);
+	        System.out.println();
+	    });
+	}
+	
 	private static void printByBirthMonth(List<Employee> employeeList, Integer... birthMonth) {
 	    List<Integer> months = Arrays.asList(birthMonth);
 	    employeeList.stream()
