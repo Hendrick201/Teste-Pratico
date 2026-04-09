@@ -52,7 +52,28 @@ public class Main {
 		Map<String, List<Employee>> employeeMap = groupByFunction(industryEmployeeList);
 
 		// Print employee grouped by function
-		printEmployeeGroupByFunction(employeeMap);
+		groupByFunction(industryEmployeeList).forEach((function, employees) -> {
+			System.out.println("=== " + function + " ===");
+			employees.forEach(System.out::println);
+			System.out.println();
+		});
+		
+		// Print employee by birth month
+		System.out.println("=== Employees by birth month ===");
+		for(Employee employee : getByBirthMonth(industryEmployeeList,10,12))
+		{
+			System.out.println(employee);
+		}
+		System.out.println("==============");
+		System.out.println();
+		
+		//Print employee list in alphabetical order
+		System.out.println("=== Employees in alphabetical order ===");
+		for(Employee employee : getByAlphabeticalOrder(industryEmployeeList))
+		{
+			System.out.println(employee);
+		}
+		System.out.println("==============");
 
 	}
 
@@ -79,14 +100,6 @@ public class Main {
 		return employeeList.stream().collect(Collectors.groupingBy(Employee::getFunction));
 	}
 
-	// Print employee grouped by function
-	private static void printEmployeeGroupByFunction(Map<String, List<Employee>> employeeMap) {
-		employeeMap.forEach((function, employees) -> {
-			System.out.println("=== " + function + " ===");
-			employees.forEach(System.out::println);
-			System.out.println();
-		});
-	}
 
 	// Get employee List by birthMonth
 	private static List<Employee> getByBirthMonth(List<Employee> employeeList, Integer... birthMonth) {
