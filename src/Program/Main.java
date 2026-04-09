@@ -41,39 +41,64 @@ public class Main {
 				"Eletricista", industryEmployeeList);
 		addIndustryEmployee("Helena", LocalDate.parse("02/09/1996", dateTimeFormatter), new BigDecimal("2799.93"),
 				"Gerente", industryEmployeeList);
-
+		
+		//Print original Employee List before changes
+		System.out.println(" === Original Employee List ===");
+		industryEmployeeList.stream().forEach(System.out::println);
+		System.out.println(" ========================");
+		System.out.println();
+		
 		// remove João
 		removeEmployeeByName("João", industryEmployeeList);
+		System.out.println(" === Removed João ===");
+		industryEmployeeList.stream().forEach(System.out::println);
+		System.out.println(" ========================");
+		System.out.println();
 
 		// Increase salary - 10%
 		raiseEmployeeSalaryPercentage(new BigDecimal("10"), industryEmployeeList);
+		System.out.println(" === Increased Salary 10% ===");
+		industryEmployeeList.stream().forEach(System.out::println);
+		System.out.println(" ========================");
+		System.out.println();
 
 		// Group by function
 		Map<String, List<Employee>> employeeMap = groupByFunction(industryEmployeeList);
 
 		// Print employee grouped by function
-		groupByFunction(industryEmployeeList).forEach((function, employees) -> {
-			System.out.println("=== " + function + " ===");
+		employeeMap.forEach((function, employees) -> {
+			System.out.println("=== " + function + " ====");
 			employees.forEach(System.out::println);
 			System.out.println();
 		});
 		
 		// Print employee by birth month
-		System.out.println("=== Employees by birth month ===");
-		for(Employee employee : getByBirthMonth(industryEmployeeList,10,12))
-		{
-			System.out.println(employee);
-		}
-		System.out.println("==============");
+		System.out.println("=== Employees by birth month 10 and 12 ===");
+		getByBirthMonth(industryEmployeeList,10,12).stream().forEach(System.out::println);
+		
+		System.out.println("==========================");
 		System.out.println();
 		
 		//Print employee list in alphabetical order
 		System.out.println("=== Employees in alphabetical order ===");
-		for(Employee employee : getByAlphabeticalOrder(industryEmployeeList))
-		{
-			System.out.println(employee);
-		}
-		System.out.println("==============");
+		getByAlphabeticalOrder(industryEmployeeList).stream().forEach(System.out::println);
+		System.out.println("==========================");
+		
+		// Print the oldest Employee
+		Employee oldest = industryEmployeeList.stream()
+			    .min(Comparator.comparing(Employee::getBirthDate))
+			    .orElse(null);
+		System.out.println("=== The oldest employee ===");
+		System.out.println("Name: " + oldest.getName());
+		System.out.println("Age: " + oldest.getAge());
+		System.out.println("==========================");
+		System.out.println();
+		
+		//Print total salary of all Employees
+		System.out.println("=== Total salary of all Employees ===");
+		
+		System.out.println("==========================");
+		
 
 	}
 
@@ -110,6 +135,7 @@ public class Main {
 
 	// Get employee list in alphabetical order
 	private static List<Employee> getByAlphabeticalOrder(List<Employee> employeeList) {
-		return employeeList.stream().sorted(Comparator.comparing(Employee::getName)).collect(Collectors.toList());
+		return employeeList.stream().sorted(Comparator.comparing(Employee::getName))
+				.collect(Collectors.toList());
 	}
 }
