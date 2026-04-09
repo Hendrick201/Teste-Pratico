@@ -8,7 +8,7 @@ Follow these steps to import and execute the project:
 
 1. **Clone the Repository:**
    ```bash
-   git clone https://github.com/Hendrick201/Teste-Pratico
+   git clone https://github.com/Hendrick201/Pactice-Test
 
    
 2. Import into Eclipse:
