@@ -20,49 +20,66 @@ public class Main {
 		Locale.setDefault(Locale.of("pt", "BR"));
 		List<Employee> industryEmployeeList = new ArrayList<Employee>();
 		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		
-		addIndustryEmployee("Maria",LocalDate.parse("18/10/2000", dateTimeFormatter),new BigDecimal("2009.440"),"Operador",industryEmployeeList);
-		addIndustryEmployee("João",LocalDate.parse("12/05/1990", dateTimeFormatter),new BigDecimal("2284.380"),"Operador", industryEmployeeList);
-		addIndustryEmployee("Caio",LocalDate.parse("02/05/1961", dateTimeFormatter),new BigDecimal("9836.140"),"Coordenador",industryEmployeeList);
-		addIndustryEmployee("Miguel",LocalDate.parse("14/10/1988", dateTimeFormatter),new BigDecimal("19119.880"),"Diretor",industryEmployeeList);
-		addIndustryEmployee("Alice",LocalDate.parse("05/01/1995", dateTimeFormatter),new BigDecimal("2234.680"),"Recepcionista",industryEmployeeList);
-		addIndustryEmployee("Heitor",LocalDate.parse("19/11/1999", dateTimeFormatter),new BigDecimal("1582.720"),"Operador",industryEmployeeList);
-		addIndustryEmployee("Arthur",LocalDate.parse("31/03/1993", dateTimeFormatter),new BigDecimal("4071.840"),"Contador",industryEmployeeList);
-		addIndustryEmployee("Laura",LocalDate.parse("08/07/1994", dateTimeFormatter),new BigDecimal("3017.450"),"Gerente",industryEmployeeList);
-		addIndustryEmployee("Heloísa",LocalDate.parse("24/05/2003", dateTimeFormatter),new BigDecimal("1606.850"),"Eletricista",industryEmployeeList);
-		addIndustryEmployee("Helena",LocalDate.parse("02/09/1996", dateTimeFormatter),new BigDecimal("2799.93"),"Gerente",industryEmployeeList);
-		
-		
+
+		addIndustryEmployee("Maria", LocalDate.parse("18/10/2000", dateTimeFormatter), new BigDecimal("2009.440"),
+				"Operador", industryEmployeeList);
+		addIndustryEmployee("João", LocalDate.parse("12/05/1990", dateTimeFormatter), new BigDecimal("2284.380"),
+				"Operador", industryEmployeeList);
+		addIndustryEmployee("Caio", LocalDate.parse("02/05/1961", dateTimeFormatter), new BigDecimal("9836.140"),
+				"Coordenador", industryEmployeeList);
+		addIndustryEmployee("Miguel", LocalDate.parse("14/10/1988", dateTimeFormatter), new BigDecimal("19119.880"),
+				"Diretor", industryEmployeeList);
+		addIndustryEmployee("Alice", LocalDate.parse("05/01/1995", dateTimeFormatter), new BigDecimal("2234.680"),
+				"Recepcionista", industryEmployeeList);
+		addIndustryEmployee("Heitor", LocalDate.parse("19/11/1999", dateTimeFormatter), new BigDecimal("1582.720"),
+				"Operador", industryEmployeeList);
+		addIndustryEmployee("Arthur", LocalDate.parse("31/03/1993", dateTimeFormatter), new BigDecimal("4071.840"),
+				"Contador", industryEmployeeList);
+		addIndustryEmployee("Laura", LocalDate.parse("08/07/1994", dateTimeFormatter), new BigDecimal("3017.450"),
+				"Gerente", industryEmployeeList);
+		addIndustryEmployee("Heloísa", LocalDate.parse("24/05/2003", dateTimeFormatter), new BigDecimal("1606.850"),
+				"Eletricista", industryEmployeeList);
+		addIndustryEmployee("Helena", LocalDate.parse("02/09/1996", dateTimeFormatter), new BigDecimal("2799.93"),
+				"Gerente", industryEmployeeList);
+
+		// remove João
+		removeEmployeeByName("João", industryEmployeeList);
+
+		// Increase salary - 10%
+		raiseEmployeeSalaryPercentage(new BigDecimal("10"), industryEmployeeList);
+
+		// Group by function
+		Map<String, List<Employee>> employeeMap = groupByFunction(industryEmployeeList);
+
+		// Print employee grouped by function
+		printEmployeeGroupByFunction(employeeMap);
+
 	}
-	
-	//Add a Industry Employee
-	private static void addIndustryEmployee(String name, LocalDate birthDate, BigDecimal salary, String function, List<Employee> industryEmployeeList)
-	{
-		industryEmployeeList.add(new IndustryEmployee(name,birthDate, salary, function));
+
+	// Add a Industry Employee
+	private static void addIndustryEmployee(String name, LocalDate birthDate, BigDecimal salary, String function,
+			List<Employee> industryEmployeeList) {
+		industryEmployeeList.add(new IndustryEmployee(name, birthDate, salary, function));
 	}
-	
-	//Remove a Employee
-	private static void removeEmployeeByName(String name, List<Employee> employeeList)
-	{
+
+	// Remove a Employee
+	private static void removeEmployeeByName(String name, List<Employee> employeeList) {
 		employeeList.removeIf(p -> p.getName().equals("João"));
 	}
-	
-	//Raise Employee salary%
-	private static void raiseEmployeeSalaryPercentage(BigDecimal percentage,List<Employee> listEmployee)
-	{
-		for(Employee emp : listEmployee)
-		{
+
+	// Raise Employee salary%
+	private static void raiseEmployeeSalaryPercentage(BigDecimal percentage, List<Employee> listEmployee) {
+		for (Employee emp : listEmployee) {
 			emp.applyRaise(percentage);
 		}
 	}
-	
-	//Group by function using Map
+
+	// Group by function using Map
 	private static Map<String, List<Employee>> groupByFunction(List<Employee> employeeList) {
-	    return employeeList.stream()
-	        .collect(Collectors.groupingBy(Employee::getFunction));
+		return employeeList.stream().collect(Collectors.groupingBy(Employee::getFunction));
 	}
-	
-	//Print employee grouped by function
+
+	// Print employee grouped by function
 	private static void printEmployeeGroupByFunction(Map<String, List<Employee>> employeeMap) {
 		employeeMap.forEach((function, employees) -> {
 			System.out.println("=== " + function + " ===");
