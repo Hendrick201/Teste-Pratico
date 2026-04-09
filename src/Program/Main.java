@@ -1,5 +1,7 @@
 package Program;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,6 +12,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import Program.entities.Employee;
+import Program.entities.IndustryEmployee;
 
 public class Main {
 
@@ -18,6 +21,16 @@ public class Main {
 		List<Employee> industryEmployeeList = new ArrayList<Employee>();
 		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
+	}
+	//Add a Industry Employee
+	private static void addIndustryEmployee(String name, LocalDate birthDate, BigDecimal salary, String function, List<Employee> industryEmployeeList)
+	{
+		industryEmployeeList.add(new IndustryEmployee(name,birthDate, salary, function));
+	}
+	//Remove a Industry Employee
+	private static void removeEmployeeByName(String name, List<Employee> employeeList)
+	{
+		employeeList.removeIf(p -> p.getName().equals("João"));
 	}
 	//Group by function using Map
 	private static Map<String, List<Employee>> groupByFunction(List<Employee> employeeList) {
