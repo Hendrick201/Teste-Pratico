@@ -19,6 +19,11 @@ public class Main {
 		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
 	}
+	//Group by function using Map
+	private static Map<String, List<Employee>> groupByFunction(List<Employee> employeeList) {
+	    return employeeList.stream()
+	        .collect(Collectors.groupingBy(Employee::getFunction));
+	}
 	//Print employee grouped by function
 	private static void printEmployeeGroupByFunction(Map<String, List<Employee>> employeeMap) {
 		employeeMap.forEach((function, employees) -> {
