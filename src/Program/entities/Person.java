@@ -32,7 +32,7 @@ public abstract class Person {
 		return age;
 	}
 	public void setAge() {
-		this.age = LocalDate.now().compareTo(birthDate);
+	    this.age = Period.between(birthDate, LocalDate.now()).getYears();
 	}
 	@Override
 	public abstract String toString();
